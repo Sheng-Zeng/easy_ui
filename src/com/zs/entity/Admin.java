@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Admin implements Serializable {
     private String username;
     private String password;
+    private String url;
 
     public Admin() {
     }
