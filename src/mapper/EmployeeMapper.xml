@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "../mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.zs.dao.EmployeeDao">
+	<select id="listEmps" resultType="Employee">
+		select * from t_employees
+		<if test="name != null">
+			where ${name} like concat('%',#{value},'%')
+		</if>
+		limit #{begin},#{size}
+	</select>
+	
+	<select id="getTotalEmpMes" resultType="int">
+		select count(*) from t_employees
+		<if test="name != null">
+			where ${name} like concat('%',#{value},'%')
+		</if>
+	</select>
+	
+	<select id="getEmpById" resultType="Employee">
+		select * from t_employees where email = #{email}
+	</select>
+	
+	<insert id="insertEmp">
+		insert into t_employees (EMP_NAME,SEX,BORNDATE,TELPHONE,EMAIL,ADDRESS) values(#{emp_name}, #{sex}, #{borndate}, #{telphone},
+		#{email}, #{address})
+	</insert>
+	
+	<update id="UpdateEmp">
+		update t_employees set emp_name =#{emp_name},sex
+		=#{sex},borndate =#{borndate},telphone =#{telphone},email
+		=#{email},address =#{address} where emp_id
+		=#{emp_id}
+	</update>
+	
+	<delete id="DeleteEmpById">
+		delete from t_employees where emp_id = #{emp_id}
+	</delete>
+
+	<select id="getAdminByName" resultType="Admin">
+		select * from t_admin where USERNAME = #{name}
+	</select>
+
+	<insert id="addAdmin">
+		insert into t_admin (USERNAME,PASSWORD) values (#{username}, #{password})
+	</insert>
+</mapper>
+		
